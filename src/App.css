@@ -1,1 +1,17 @@
 /* write your css here */
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    overflow-x: hidden;
+}
+
+.homepage_bg {
+    background: url("./assets/Images/bghome.svg");
+}
+
+.active {
+    color: #FFD60A;
+}
