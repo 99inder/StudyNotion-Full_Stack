@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Logo from "../../assets/Logo/Logo-Full-Light.png"
 import { NavbarLinks } from "../../data/navbar-links"
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { AiOutlineShoppingCart } from "react-icons/ai"
 import ProfileDropdown from '../core/Auth/ProfileDropdown'
@@ -11,6 +11,8 @@ import { categories } from '../../services/apis'
 import { BsChevronDown } from 'react-icons/bs'
 
 const Navbar = () => {
+
+    const location = useLocation();
 
     const { token } = useSelector(state => state.auth);
     const { user } = useSelector(state => state.profile);
@@ -38,11 +40,10 @@ const Navbar = () => {
         fetchSublinks();
     }, [])
 
-
     return (
-        <div className='flex py-4 border-b-[1px] border-richblack-700 text-white'>
+        <div className={`flex py-4 border-b-[1px] border-richblack-700 text-white ${(location.pathname === '/' || location.pathname === '/contact') ? "" : "bg-richblack-800"} transition-all duration-200`}>
 
-            <div className='w-11/12 mx-auto flex justify-around items-center  '>
+            <div className='w-11/12 max-w-maxContent mx-auto flex justify-between items-center'>
 
                 {/* LOGO */}
                 <Link to="/">
@@ -67,7 +68,7 @@ const Navbar = () => {
 
                                                     <div className='absolute z-20 w-max lg:w-72 lg:-right-28 top-full mt-4 invisible opacity-0 rounded-md bg-richblack-5 p-4 text-richblue-900 group-hover:visible group-hover:opacity-100 transition-all duration-200 '>
                                                         <ul className='text-lg'>
-                                                            {   catalogLinks.length > 0 ?
+                                                            {catalogLinks.length > 0 ?
                                                                 catalogLinks.map((e, i) => (
                                                                     <li key={i} className='hover:bg-richblack-50 rounded-md'>
                                                                         <Link to={e.link} className='w-full inline-block p-3'>{e.title}</Link>

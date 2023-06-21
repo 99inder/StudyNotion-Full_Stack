@@ -12,6 +12,10 @@ body {
     background: url("./assets/Images/bghome.svg");
 }
 
+.login_bg {
+    background: url("./assets/Images/frame.png");
+}
+
 .active {
     color: #FFD60A;
 }
