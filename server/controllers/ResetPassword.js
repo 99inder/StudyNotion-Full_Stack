@@ -22,7 +22,7 @@ exports.resetPasswordToken = async (req, res) => {
         const user = await User.findOne({ email });
 
         if (!user) {
-            return res.status(401).json({
+            return res.status(404).json({
                 success: false,
                 message: "User with this email does not exist. SignUp instead."
             })

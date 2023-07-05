@@ -80,10 +80,10 @@ exports.sendotp = async (req, res) => {
 //SignUp
 exports.signup = async (req, res) => {
     try {
-        const { firstName, lastName, email, contactNumber, password, confirmPassword, accountType, otp } = req.body;
+        const { firstName, lastName, email, password, confirmPassword, accountType, otp } = req.body;
 
         //all the required fields validation
-        if (!(firstName || lastName || email || contactNumber || password || confirmPassword || accountType || otp)) {
+        if (!(firstName || lastName || email || password || confirmPassword || accountType || otp)) {
             return res.status(400).json({
                 success: false,
                 message: "All the required fields must be filled."
@@ -146,7 +146,6 @@ exports.signup = async (req, res) => {
             firstName,
             lastName,
             email,
-            contactNumber,
             password: hashedPassword,
             accountType,
             approved: approved,

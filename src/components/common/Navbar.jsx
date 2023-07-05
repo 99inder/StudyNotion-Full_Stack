@@ -41,7 +41,7 @@ const Navbar = () => {
     }, [])
 
     return (
-        <div className={`flex py-4 border-b-[1px] border-richblack-700 text-white ${(location.pathname === '/' || location.pathname === '/contact') ? "" : "bg-richblack-800"} transition-all duration-200`}>
+        <div className={`flex h-[3.5rem] py-4 border-b-[1px] border-richblack-700 text-white ${(location.pathname === '/' || location.pathname === '/contact') ? "" : "bg-richblack-800"} transition-all duration-200`}>
 
             <div className='w-11/12 max-w-maxContent mx-auto flex justify-between items-center'>
 
@@ -70,7 +70,7 @@ const Navbar = () => {
                                                         <ul className='text-lg'>
                                                             {catalogLinks.length > 0 ?
                                                                 catalogLinks.map((e, i) => (
-                                                                    <li key={i} className='hover:bg-richblack-50 rounded-md'>
+                                                                    <li key={i} className='hover:bg-richblack-50 rounded-md relative z-10'>
                                                                         <Link to={e.link} className='w-full inline-block p-3'>{e.title}</Link>
                                                                     </li>
                                                                 )) :
@@ -78,7 +78,7 @@ const Navbar = () => {
                                                             }
                                                         </ul>
 
-                                                        <div className='absolute z-10 h-6 w-6 rotate-45 rounded bg-richblack-5 -top-1 right-6 lg:right-[37%]'>
+                                                        <div className='absolute h-6 w-6 rotate-45 rounded bg-richblack-5 -top-1 right-6 lg:right-[37%]'>
                                                         </div>
 
                                                     </div>
@@ -96,14 +96,15 @@ const Navbar = () => {
                 </nav>
 
                 {/* LOGIN / SIGNUP / DASHBOARD */}
-                <div className='flex gap-3'>
+                <div className='flex items-center gap-3'>
+                    {/* <AiOutlineSearch className='text-2xl'/> */}
                     {
                         user && user?.accountType !== "instructor" && (
                             <Link to="/dashboard/cart" className='relative'>
-                                <AiOutlineShoppingCart />
+                                <AiOutlineShoppingCart className='text-2xl' />
                                 {
                                     totalItems > 0 && (
-                                        <span className='absolute rounded-full text-white bg-yellow-50 top-0 right-0'>{totalItems}</span>
+                                        <span className='absolute flex items-center justify-center font-semibold rounded-full text-sm w-[20px] h-[20px] text-richblack-800 bg-yellow-50 -top-3 -right-3'>{totalItems}</span>
                                     )
                                 }
                             </Link>

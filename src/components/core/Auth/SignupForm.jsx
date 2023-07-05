@@ -2,8 +2,16 @@ import { useState } from 'react';
 import { ACCOUNT_TYPE } from '../../../utils/constants';
 import Tab from '../../common/Tab';
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { toast } from 'react-hot-toast';
+import { setSignupData } from '../../../redux/slices/authSlice';
+import { useDispatch } from 'react-redux';
+import { sendOtp } from '../../../services/operations/authAPI';
+import { useNavigate } from 'react-router-dom';
 
 const SignupForm = () => {
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const tabData = [
     {
@@ -18,7 +26,7 @@ const SignupForm = () => {
     }
   ]
 
-  const [selectedAccountType, setSelectedAccountType] = useState(ACCOUNT_TYPE.STUDENT);
+  const [accountType, setAccountType] = useState(ACCOUNT_TYPE.STUDENT);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -37,17 +45,44 @@ const SignupForm = () => {
     }))
   }
 
+  // Handle Form Submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Logged");
-    console.log(formData);
+
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+
+    const signupData = {
+      ...formData,
+      accountType,
+    }
+
+    // Setting signup data to redux store state
+    // To be used after otp verification
+    dispatch(setSignupData(signupData));
+
+    // Send OTP to user for verification
+    dispatch(sendOtp(formData.email, navigate));
+
+    //reset state
+    setFormData({
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
+
+    setAccountType(ACCOUNT_TYPE.STUDENT);
   }
 
 
   return (
     <form onSubmit={handleSubmit} className='text-white mt-9 flex flex-col gap-5 font-inter'>
 
-      <Tab tabData={tabData} field={selectedAccountType} setField={setSelectedAccountType} />
+      <Tab tabData={tabData} field={accountType} setField={setAccountType} />
 
       {/* First and Last Name */}
       <div className='flex gap-4 wrap'>
