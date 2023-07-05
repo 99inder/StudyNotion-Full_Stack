@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import Spinner from '../components/common/Spinner';
 import { resetPassword } from '../services/operations/authAPI';
 
@@ -48,7 +49,7 @@ const UpdatePassword = () => {
                         </div>
 
                         <form onSubmit={handleOnSubmit} className='flex flex-col items-start gap-5 self-stretch'>
-                            <label className='flex flex-col gap-[0.125rem] self-stretch'>
+                            <label className='flex flex-col gap-[0.125rem] self-stretch relative'>
                                 <p className=' text-sm leading-[1.375rem]'>New password <span className=' text-pink-200'>*</span></p>
                                 <input
                                     required
@@ -57,10 +58,15 @@ const UpdatePassword = () => {
                                     name='password'
                                     value={formData.password}
                                     onChange={handleOnChange}
-                                    className=' p-3 bg-richblack-800 rounded-lg text-base font-medium text-richblack-200 self-stretch'
+                                    className=' p-3 pr-[2rem] bg-richblack-800 rounded-lg text-base font-medium text-richblack-200 self-stretch'
                                 />
+                                <span className='absolute right-2 top-[2.3rem] z-[10] cursor-pointer text-2xl bg-richblack-800' onClick={() => setShowPassword(prev => !prev)}>
+                                    {
+                                        showPassword ? <AiOutlineEyeInvisible fill='#AFB2BF' /> : <AiOutlineEye fill='#AFB2BF' />
+                                    }
+                                </span>
                             </label>
-                            <label className='flex flex-col gap-[0.125rem] self-stretch'>
+                            <label className='flex flex-col gap-[0.125rem] self-stretch relative'>
                                 <p className=' text-sm leading-[1.375rem]'>Confirm password <span className=' text-pink-200'>*</span></p>
                                 <input
                                     required
@@ -69,8 +75,13 @@ const UpdatePassword = () => {
                                     name='confirmPassword'
                                     value={formData.confirmPassword}
                                     onChange={handleOnChange}
-                                    className=' p-3 bg-richblack-800 rounded-lg text-base font-medium text-richblack-200 self-stretch'
+                                    className=' p-3 pr[2.1rem] bg-richblack-800 rounded-lg text-base font-medium text-richblack-200 self-stretch'
                                 />
+                                <span className='absolute right-2 top-[2.3rem] z-[10] cursor-pointer text-2xl bg-richblack-800' onClick={() => setShowConfirmPassword(prev => !prev)}>
+                                    {
+                                        showConfirmPassword ? <AiOutlineEyeInvisible fill='#AFB2BF' /> : <AiOutlineEye fill='#AFB2BF' />
+                                    }
+                                </span>
                             </label>
                             <div className=' mt-1'>
                                 VALIDATIONS

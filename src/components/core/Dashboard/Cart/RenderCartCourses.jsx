@@ -16,7 +16,7 @@ const RenderCartCourses = () => {
                 cart.map((course, index) => (
                     <div key={index}>
                         <div className='flex flex-wrap lg:flex-nowrap px-6 gap-5'>
-                            <img src={course?.thumbnail} className='w-[11.5625rem] h-full object-contain rounded-lg lg:basis-1/5 lg:order-1 order-1' />
+                            <img src={course?.thumbnail} alt='course_thumbnail.jpg' className='w-[11.5625rem] h-full object-contain rounded-lg lg:basis-1/5 lg:order-1 order-1' />
                             <div className='flex flex-col gap-y-2 lg:basis-3/5 lg:order-2 order-3'>
                                 <p className='text-richblack-5 font-medium text-lg leading-[1.625rem]'>{course?.courseName}</p>
                                 <p className='text-richblack-300'>{course?.courseDescription}</p>
