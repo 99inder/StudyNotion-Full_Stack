@@ -12,10 +12,17 @@ exports.createCourse = async (req, res) => {
         const { courseName, courseDescription, whatYouWillLearn, price, tag, category, status, instructions } = req.body;
 
         //get Thumbnail
-        const thumbnail = req.files.thumbnailImage;
+        const thumbnail = req?.files?.thumbnailImage;
 
         //validation
-        if (!courseName || !courseDescription || !whatYouWillLearn || !price || !category || !thumbnail || !tag) {
+        if (!courseName ||
+            !courseDescription ||
+            !whatYouWillLearn ||
+            !price ||
+            !category ||
+            !thumbnail ||
+            !tag
+        ) {
             return res.status(400).json({
                 success: false,
                 message: "All the required fields must be filled."

@@ -7,6 +7,7 @@ const IconBtn = ({
     disabled,
     outline = false,
     customClasses,
+    innerClasses,
     type,
 }) => {
     return (
@@ -18,7 +19,7 @@ const IconBtn = ({
         >
             {
                 children ? (
-                    <div className='flex items-center'>
+                    <div className={`flex items-center ${innerClasses}`}>
                         {children}
                         <span>
                             {text}

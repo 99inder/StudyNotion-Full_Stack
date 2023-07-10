@@ -26,7 +26,7 @@ const ProfileDropdown = () => {
   return (
     <div onClick={() => setIsOpen(prev => !prev)} className="relative cursor-pointer z-10">
       <div className="flex items-center gap-2 ">
-        <img className="w-[2rem] rounded-full" src={user.image} alt="user_img" />
+        <img className="w-[2rem] aspect-square object-cover rounded-full" src={user.image} alt="user_img" />
         <AiFillCaretDown className={`${isOpen ? 'rotate-180' : ''} transition-all duration-200`} />
       </div>
 
