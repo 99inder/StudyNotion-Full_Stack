@@ -53,6 +53,8 @@ const CourseInformationForm = () => {
     }
 
     getCategories();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const isFormUpdated = () => {
@@ -60,7 +62,6 @@ const CourseInformationForm = () => {
     if (currentValues.courseTitle !== course.courseName ||
       currentValues.courseShortDesc !== course.courseDescription ||
       currentValues.coursePrice !== course.price ||
-      currentValues.courseTitle !== course.courseName ||
       currentValues.courseTags.toString() !== course.tag.toString() ||
       currentValues.courseBenefits !== course.whatYouWillLearn ||
       currentValues.courseCategory._id !== course.category._id ||
@@ -108,11 +109,15 @@ const CourseInformationForm = () => {
           formData.append("instructions", JSON.stringify(data.courseRequirements));
         }
 
+        if (currentValues.courseImage !== course.thumbnail) {
+          formData.append("thumbnailImage", data.courseImage)
+        }
+
         setLoading(true);
         const result = await editCourseDetails(formData, token);
         setLoading(false);
         if (result) {
-          setStep(2);
+          dispatch(setStep(2));
           dispatch(setCourse(result));
         }
       }
@@ -135,6 +140,7 @@ const CourseInformationForm = () => {
     formData.append("category", data.courseCategory);
     formData.append("instructions", JSON.stringify(data.courseRequirements));
     formData.append("status", COURSE_STATUS.DRAFT);
+    formData.append("thumbnailImage", data.courseImage);
 
     setLoading(true);
     console.log("BEFORE add course API call");
@@ -280,7 +286,7 @@ const CourseInformationForm = () => {
 
       <div className="flex justify-end gap-5 flex-wrap">
         {
-          editCourse &&
+          !editCourse &&
           <button
             onClick={() => dispatch(setStep(2))}
             className="bg-richblack-700 px-3 rounded-md text-richblack-5 font-medium"

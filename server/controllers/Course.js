@@ -13,7 +13,7 @@ exports.createCourse = async (req, res) => {
 
         //get Thumbnail
         const thumbnail = req?.files?.thumbnailImage;
-
+        
         //validation
         if (!courseName ||
             !courseDescription ||

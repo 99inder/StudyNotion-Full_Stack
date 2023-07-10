@@ -35,16 +35,22 @@ exports.createSection = async (req, res) => {
                 $push: { courseContent: newSection._id }
             },
             { new: true }
-        );
+        ).populate(
+            {
+                path: "courseContent",
+                populate: {
+                    path: "subSection"
+                }
+            }
+        ).exec();
 
-        // HW: use populate to replace section & sub-section both in the updatedCourseDetails
+        // HW: [DONE ABOVE] use populate to replace section & sub-section both in the updatedCourseDetails
 
         //return response
         return res.status(200).json({
             success: true,
             message: "Section Created Successfully.",
-            updatedCourseDetails
-
+            data: updatedCourseDetails
         })
     } catch (error) {
         console.log("Error occured while creating new Section.")
