@@ -24,24 +24,31 @@ const CourseBuilderForm = () => {
     setLoading(true);
     let result;
 
+    //Editing Section
     if (editSectionName) {
       result = await updateSection({
         sectionName: data.sectionName,
-        sectionId: data.sectionId,
-      }, token)
+        sectionId: editSectionName,
+      }, token);
+
+      const updatedCourseContent = course.courseContent.map(section => section._id === result._id ? result : section);
+      const updatedCourse = { ...course, courseContent: updatedCourseContent };
+
+      result = updatedCourse;
     }
 
+    //Creating Section
     else {
       result = await createSection({
         sectionName: data.sectionName,
-        courseId: "64abd2aecab3998ca659aea6",
+        courseId: course._id,
       }, token)
     }
 
     // update values
     if (result) {
       dispatch(setCourse(result));
-      setEditCourse(null);
+      setEditSectionName(null);
       setValue("sectionName", "");
     }
 
@@ -51,7 +58,7 @@ const CourseBuilderForm = () => {
   }
 
   const cancelEdit = () => {
-    setEditSectionName(false);
+    setEditSectionName(null);
     setValue("sectionName", "");
   }
 
@@ -75,6 +82,7 @@ const CourseBuilderForm = () => {
   }
 
   const handleChangeEditSectionName = (sectionId, sectionName) => {
+
     if (editSectionName) {
       cancelEdit();
       return;
@@ -88,6 +96,12 @@ const CourseBuilderForm = () => {
     <div className="px-2 py-4 lg:p-6 bg-richblack-800 rounded-lg border-[1px] border-richblack-700 flex flex-col gap-4 lg:gap-[26px]">
       <h3 className="text-richblack-5 text-2xl font-semibold">Course Builder</h3>
 
+      {
+        course?.courseContent?.length > 0 && (
+          <NestedView handleChangeEditSectionName={handleChangeEditSectionName} cancelEdit={cancelEdit} />
+        )
+      }
+
       <form onSubmit={handleSubmit(onSubmit)}>
         {/* Course sectionName Input */}
         <div>
@@ -96,8 +110,9 @@ const CourseBuilderForm = () => {
           <input
             id="sectionName"
             type="text"
+            placeholder="Add a section to build your course"
             {...register("sectionName", { required: true })}
-            className="w-full"
+            className="w-full p-3 mt-[6px] bg-richblack-700 text-richblack-5 rounded-lg font-medium"
           />
           {
             errors.sectionName && <span className="ml-2 text-xs tracking-wide text-pink-200">Section name is required</span>
@@ -105,11 +120,11 @@ const CourseBuilderForm = () => {
         </div>
 
         {/* Create / Edit Section Buttons */}
-        <div className="flex gap-x-7 flex-wrap">
+        <div className="flex gap-x-7 flex-wrap mt-[1.625rem]">
           <IconBtn
             type={"submit"}
             text={editSectionName ? "Edit Section Name" : "Create Section"}
-            customClasses={"bg-transparent border-yellow-50 border-[1px] text-yellow-50 "}
+            customClasses={"!bg-transparent border-yellow-50 border-[1px] !text-yellow-50 "}
             innerClasses={"gap-3"}
           >
             {
@@ -121,13 +136,7 @@ const CourseBuilderForm = () => {
           }
         </div>
 
-        {
-          course?.courseContent.length > 0 && (
-            <NestedView handleChangeEditSectionName={handleChangeEditSectionName} />
-          )
-        }
-
-        <div className="flex gap-x-5 justify-end">
+        <div className="flex gap-x-5 justify-end mt-10">
           <button
             type="button"
             onClick={goBack}
@@ -145,7 +154,6 @@ const CourseBuilderForm = () => {
           </IconBtn>
         </div>
       </form >
-      <button onClick={() => dispatch(setStep(1))}>Back</button>
     </div >
   )
 }

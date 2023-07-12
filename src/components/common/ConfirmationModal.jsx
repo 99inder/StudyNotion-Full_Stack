@@ -1,6 +1,7 @@
 const ConfirmationModal = ({ modalData }) => {
+
     return (
-        <div className="text-white fixed inset-0 grid place-items-center bg-white bg-opacity-10 backdrop-blur-sm">
+        <div className="z-10 text-white fixed inset-0 grid place-items-center bg-white bg-opacity-10 backdrop-blur-sm">
             <div className="border border-richblack-400 bg-richblack-800 p-6 rounded-lg">
                 <div>
                     <p className="text-2xl font-semibold text-richblack-5">{modalData.text1}</p>

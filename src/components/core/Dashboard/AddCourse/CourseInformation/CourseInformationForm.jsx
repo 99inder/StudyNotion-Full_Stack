@@ -75,46 +75,42 @@ const CourseInformationForm = () => {
   //handles next button click
   const onSubmit = async (data) => {
 
+    let result;
+    const formData = new FormData();
+
     if (editCourse) {
       if (isFormUpdated()) {
-        const currentValues = getValues();
-        const formData = new FormData();
-
-        formData.append("courseId", course._id);
+        const currentValues = getValues()
+        const formData = new FormData()
+        // console.log(data)
+        formData.append("courseId", course._id)
         if (currentValues.courseTitle !== course.courseName) {
-          formData.append("courseName", data.courseTitle);
+          formData.append("courseName", data.courseTitle)
         }
-
         if (currentValues.courseShortDesc !== course.courseDescription) {
-          formData.append("courseDescription", data.courseShortDesc);
+          formData.append("courseDescription", data.courseShortDesc)
         }
-
         if (currentValues.coursePrice !== course.price) {
-          formData.append("price", data.coursePrice);
+          formData.append("price", data.coursePrice)
         }
-
-        if (currentValues.courseBenefits !== course.whatYouWillLearn) {
-          formData.append("whatYouWillLearn", data.courseBenefits);
-        }
-
-        if (currentValues.courseCategory._id !== course.category._id) {
-          formData.append("category", data.courseCategory);
-        }
-
         if (currentValues.courseTags.toString() !== course.tag.toString()) {
-          formData.append("tag", JSON.stringify(data.courseTags));
+          formData.append("tag", JSON.stringify(data.courseTags))
         }
-
+        if (currentValues.courseBenefits !== course.whatYouWillLearn) {
+          formData.append("whatYouWillLearn", data.courseBenefits)
+        }
+        if (currentValues.courseCategory._id !== course.category._id) {
+          formData.append("category", data.courseCategory)
+        }
         if (currentValues.courseRequirements.toString() !== course.instructions.toString()) {
-          formData.append("instructions", JSON.stringify(data.courseRequirements));
+          formData.append("instructions", JSON.stringify(data.courseRequirements))
         }
-
         if (currentValues.courseImage !== course.thumbnail) {
           formData.append("thumbnailImage", data.courseImage)
         }
 
         setLoading(true);
-        const result = await editCourseDetails(formData, token);
+        result = await editCourseDetails(formData, token);
         setLoading(false);
         if (result) {
           dispatch(setStep(2));
@@ -124,14 +120,11 @@ const CourseInformationForm = () => {
       else {
         toast.error("No Changes made so far");
       }
-      console.log("PRINTING FORMDATA", formData);
-      console.log("PRINTING result", result);
 
       return;
     }
 
     //create a new course
-    const formData = new FormData();
     formData.append("courseName", data.courseTitle);
     formData.append("courseDescription", data.courseShortDesc);
     formData.append("price", data.coursePrice);
@@ -145,7 +138,7 @@ const CourseInformationForm = () => {
     setLoading(true);
     console.log("BEFORE add course API call");
     console.log("PRINTING FORMDATA", formData);
-    const result = await addCourseDetails(formData, token);
+    result = await addCourseDetails(formData, token);
     if (result) {
       dispatch(setStep(2));
       dispatch(setCourse(result));
@@ -286,7 +279,7 @@ const CourseInformationForm = () => {
 
       <div className="flex justify-end gap-5 flex-wrap">
         {
-          !editCourse &&
+          editCourse &&
           <button
             onClick={() => dispatch(setStep(2))}
             className="bg-richblack-700 px-3 rounded-md text-richblack-5 font-medium"
@@ -296,6 +289,7 @@ const CourseInformationForm = () => {
         }
 
         <IconBtn
+          type={"submit"}
           text={editCourse ? "Save Changes" : "Next"}
           customClasses={"font-medium flex-row-reverse"}
           innerClasses={"flex-row-reverse gap-1 my-auto"}

@@ -2,7 +2,7 @@ import { useSelector } from "react-redux"
 import { FaCheck } from "react-icons/fa"
 import { AiOutlineLeft } from "react-icons/ai"
 import CourseBuilderForm from "./CourseBuilder/CourseBuilderForm";
-import PublishCourse from "./PublishCourse";
+import PublishCourse from "./Publish Course";
 import CourseInformationForm from "./CourseInformation/CourseInformationForm";
 import { Link } from "react-router-dom";
 

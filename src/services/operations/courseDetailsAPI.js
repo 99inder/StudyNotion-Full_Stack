@@ -7,6 +7,10 @@ const { COURSE_CATEGORIES_API,
     EDIT_COURSE_API,
     UPDATE_SECTION_API,
     CREATE_SECTION_API,
+    DELETE_SECTION_API,
+    DELETE_SUBSECTION_API,
+    CREATE_SUBSECTION_API,
+    UPDATE_SUBSECTION_API
 } = courseEndpoints;
 
 export const fetchCourseCategories = async () => {
@@ -42,6 +46,7 @@ export const addCourseDetails = async (data, token) => {
         }
         toast.success("Course Details Added Successfully")
         result = response?.data?.data
+        console.log(result);
     } catch (error) {
         console.log("CREATE COURSE API ERROR............", error)
         toast.error(error.message)
@@ -88,6 +93,7 @@ export const updateSection = async (data, token) => {
         }
         result = response?.data?.data;
         toast.success("Section Updated")
+        console.log("course updateSection API response", result);
     } catch (error) {
         console.log("Error Occured at course updateSection API....", error);
         toast.error("Failed to update section")
@@ -117,6 +123,116 @@ export const createSection = async (data, token) => {
     }
 
     console.log("createSection API RESPONSE...", result);
+
+    toast.dismiss(toastId);
+    return result;
+}
+
+//delete Section [TODO: HAVE TO TAKE A LOOK AT IT's BACKEND]
+export const deleteSection = async (data, token) => {
+    let result;
+    const toastId = toast.loading("Deleting Section...");
+
+    try {
+        const response = await apiConnector("POST", DELETE_SECTION_API, data, {
+            Authorization: `Bearer ${token}`
+        });
+
+        if (!response?.data?.success)
+            throw new Error("deleteSection API Error");
+
+        result = response?.data;
+        toast.success("Section Deleted");
+
+    } catch (error) {
+        console.log("Error Occured at course deleteSection API...", error);
+        toast.error("Failed to delete section");
+    }
+
+    console.log("deleteSection API RESPONSE...", result);
+
+    toast.dismiss(toastId);
+    return result;
+}
+
+//delete Sub-Section
+export const deleteSubSection = async (data, token) => {
+    let result;
+    const toastId = toast.loading("Deleting Sub-Section...");
+
+    try {
+        const response = await apiConnector("POST", DELETE_SUBSECTION_API, data, {
+            Authorization: `Bearer ${token}`
+        });
+
+        if (!response.data.success)
+            throw new Error("deleteSubSection API Error");
+
+        result = response?.data;
+        toast.success("Sub-Section Deleted");
+
+    } catch (error) {
+        console.log("Error Occured at course deleteSubSection API...", error);
+        toast.error("Failed to delete Sub-Section");
+    }
+
+    console.log("deleteSubSection API RESPONSE...", result);
+
+    toast.dismiss(toastId);
+    return result;
+}
+
+// create Sub-Section
+export const createSubSection = async (data, token) => {
+    let result;
+    const toastId = toast.loading("Creating Sub-Section...");
+
+    try {
+        const response = await apiConnector("POST", CREATE_SUBSECTION_API, data, {
+            "Content-Type": "multipart/form-data",
+            "Authorization": `Bearer ${token}`
+        });
+
+        if (!response.data.success)
+            throw new Error("createSubSection API Error");
+
+        result = response?.data;
+        toast.success("Sub-Section Created");
+
+    } catch (error) {
+        console.log("Error Occured at course createSubSection API...", error);
+        toast.error("Failed to create Sub-Section");
+    }
+
+    console.log("createSubSection API RESPONSE...", result);
+
+    toast.dismiss(toastId);
+    return result;
+}
+
+// update Sub-Section
+export const updateSubSection = async (data, token) => {
+    let result;
+    const toastId = toast.loading("Updating Sub-Section...");
+
+    try {
+        const response = await apiConnector("POST", UPDATE_SUBSECTION_API, data, {
+            "Content-Type": "multipart/form-data",
+            "Authorization": `Bearer ${token}`
+        });
+
+        if (!response.data.success)
+            throw new Error("updateSubSection API Error");
+
+        result = response?.data;
+        toast.success("Sub-Section Updated");
+
+    } catch (error) {
+        console.log("Error Occured at course updateSubSection API...", error);
+        toast.error("Failed to update Sub-Section");
+    }
+
+    console.log("updateSubSection API RESPONSE...", result);
 
     toast.dismiss(toastId);
     return result;
