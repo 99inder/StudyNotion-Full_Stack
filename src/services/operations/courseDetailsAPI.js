@@ -10,7 +10,10 @@ const { COURSE_CATEGORIES_API,
     DELETE_SECTION_API,
     DELETE_SUBSECTION_API,
     CREATE_SUBSECTION_API,
-    UPDATE_SUBSECTION_API
+    UPDATE_SUBSECTION_API,
+    GET_ALL_INSTRUCTOR_COURSES_API,
+    DELETE_COURSE_API,
+    GET_FULL_COURSE_DETAILS_AUTHENTICATED,
 } = courseEndpoints;
 
 export const fetchCourseCategories = async () => {
@@ -236,4 +239,86 @@ export const updateSubSection = async (data, token) => {
 
     toast.dismiss(toastId);
     return result;
+}
+
+// Fetching the instructor courses
+export const fetchInstructorCourses = async (token) => {
+    const toastId = toast.loading("Fetching Courses...");
+    let result;
+
+    try {
+        result = await apiConnector("GET", GET_ALL_INSTRUCTOR_COURSES_API, null, {
+            Authorization: `Bearer ${token}`
+        })
+
+        result = result?.data;
+
+        if (!result?.success)
+            throw new Error(result?.message);
+
+        toast.success("Courses Fetched Successfully");
+    } catch (error) {
+        console.log("Error Occured at course getInstructorCourses API...", error);
+        toast.error("Failed to update Sub-Section");
+    }
+
+    toast.dismiss(toastId);
+    return result;
+}
+
+//Delete a course
+export const deleteCourse = async (data, token) => {
+    const toastId = toast.loading("Deleting the course...");
+    let result;
+
+    try {
+        const response = await apiConnector("DELETE", DELETE_COURSE_API, data, {
+            Authorization: `Bearer ${token}`
+        })
+
+        if (!response?.data?.success)
+            throw new Error(response.data.message);
+
+        result = response?.data;
+        toast.success("Course Deleted Successfully");
+
+    } catch (error) {
+        console.log("Error occured at course deleteCourse API>>>", error);
+        toast.error("Course Deletion Failed.");
+    }
+
+    toast.dismiss(toastId);
+    return result?.data?.success;
+}
+
+// get full details of a course
+export const getFullDetailsOfCourse = async (courseId, token) => {
+    const toastId = toast.loading("Loading...")
+    //   dispatch(setLoading(true));
+    let result = null
+    try {
+        const response = await apiConnector(
+            "POST",
+            GET_FULL_COURSE_DETAILS_AUTHENTICATED,
+            {
+                courseId,
+            },
+            {
+                Authorization: `Bearer ${token}`,
+            }
+        )
+        console.log("COURSE_FULL_DETAILS_API API RESPONSE............", response)
+
+        if (!response.data.success) {
+            throw new Error(response.data.message)
+        }
+        result = response?.data?.data
+    } catch (error) {
+        console.log("COURSE_FULL_DETAILS_API API ERROR............", error)
+        result = error.response.data
+        // toast.error(error.response.data.message);
+    }
+    toast.dismiss(toastId)
+    //   dispatch(setLoading(false));
+    return result
 }

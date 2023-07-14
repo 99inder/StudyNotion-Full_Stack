@@ -92,113 +92,53 @@ const Footer = () => {
   return (
     <div className='w-full bg-richblack-800'>
 
-      <div className=' w-11/12 mx-auto text-richblack-400 flex justify-between pt-14 pb-8'>
+      <div className='w-11/12 max-w-maxContent mx-auto'>
 
-        {/* LEFT SECTION */}
-        <div className='flex-wrap basis-1/2 flex justify-evenly'>
-          {/* COLUMN 1 */}
-          <div className='basis-1/6'>
-            <img src={Logo} alt="smalLogo.png" className=' w-40' />
-            <p className='text-richblack-100 mt-3 font-semibold'>Company</p>
-            <ul className='mt-3 text-sm'>
-              {
-                company.map((e, i) => (
-                  <li key={i} className='mt-2'>
-                    <Link to={e.link}>{e.title}</Link>
-                  </li>
-                ))
-              }
-            </ul>
+        <div className='text-richblack-400 flex justify-between pt-14 pb-8'>
 
-            {/* SOCIAL LINKS */}
-            <div className='flex gap-4 mt-5 text-xl'>
-              <Link to="#">
-                <FaFacebook />
-              </Link>
-
-              <Link to="#">
-                <ImGoogle3 />
-              </Link>
-
-              <Link to="#">
-                <ImTwitter />
-              </Link>
-
-              <Link to="#">
-                <FaYoutube />
-              </Link>
-            </div>
-          </div>
-
-          {/* COLUMN 2 */}
-          <div className='basis-1/6'>
-            <div>
-              <p className='text-richblack-100 font-semibold'>Resources</p>
+          {/* LEFT SECTION */}
+          <div className='flex-wrap basis-1/2 flex justify-between pr-[3.25rem]'>
+            {/* COLUMN 1 */}
+            <div className='basis-1/6'>
+              <img src={Logo} alt="smalLogo.png" className=' w-40' />
+              <p className='text-richblack-100 mt-3 font-semibold'>Company</p>
               <ul className='mt-3 text-sm'>
                 {
-                  resources.map((e, i) => (
+                  company.map((e, i) => (
                     <li key={i} className='mt-2'>
                       <Link to={e.link}>{e.title}</Link>
                     </li>
                   ))
                 }
               </ul>
+
+              {/* SOCIAL LINKS */}
+              <div className='flex gap-4 mt-5 text-xl'>
+                <Link to="#">
+                  <FaFacebook />
+                </Link>
+
+                <Link to="#">
+                  <ImGoogle3 />
+                </Link>
+
+                <Link to="#">
+                  <ImTwitter />
+                </Link>
+
+                <Link to="#">
+                  <FaYoutube />
+                </Link>
+              </div>
             </div>
 
-            <div className='mt-9'>
-              <p className='text-richblack-100 font-semibold'>Support</p>
-              <ul className='mt-3 text-sm'>
-                {
-                  support.map((e, i) => (
-                    <li key={i} className='mt-2'>
-                      <Link to={e.link}>{e.title}</Link>
-                    </li>
-                  ))
-                }
-              </ul>
-            </div>
-
-          </div>
-
-          {/* COLUMN 3 */}
-          <div className='basis-1/6'>
-            <div>
-              <p className='text-richblack-100 font-semibold'>Plans</p>
-              <ul className='mt-3 text-sm'>
-                {
-                  plans.map((e, i) => (
-                    <li key={i} className='mt-2'>
-                      <Link to={e.link}>{e.title}</Link>
-                    </li>
-                  ))
-                }
-              </ul>
-            </div>
-
-            <div className='mt-9'>
-              <p className='text-richblack-100 font-semibold'>Community</p>
-              <ul className='mt-3 text-sm'>
-                {
-                  community.map((e, i) => (
-                    <li key={i} className='mt-2'>
-                      <Link to={e.link}>{e.title}</Link>
-                    </li>
-                  ))
-                }
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        {/* RIGHT SECTION */}
-        <div className='basis-1/2 flex justify-evenly border-l-[1px] border-l-richblack-700'>
-          {
-            FooterLink2.map((e, i) => (
-              <div key={i}>
-                <p className='text-richblack-100 font-semibold text-base'>{e.title}</p>
+            {/* COLUMN 2 */}
+            <div className='basis-1/6'>
+              <div>
+                <p className='text-richblack-100 font-semibold'>Resources</p>
                 <ul className='mt-3 text-sm'>
                   {
-                    e.links.map((e, i) => (
+                    resources.map((e, i) => (
                       <li key={i} className='mt-2'>
                         <Link to={e.link}>{e.title}</Link>
                       </li>
@@ -206,24 +146,88 @@ const Footer = () => {
                   }
                 </ul>
               </div>
-            ))
-          }
+
+              <div className='mt-9'>
+                <p className='text-richblack-100 font-semibold'>Support</p>
+                <ul className='mt-3 text-sm'>
+                  {
+                    support.map((e, i) => (
+                      <li key={i} className='mt-2'>
+                        <Link to={e.link}>{e.title}</Link>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </div>
+
+            </div>
+
+            {/* COLUMN 3 */}
+            <div className='basis-1/6'>
+              <div>
+                <p className='text-richblack-100 font-semibold'>Plans</p>
+                <ul className='mt-3 text-sm'>
+                  {
+                    plans.map((e, i) => (
+                      <li key={i} className='mt-2'>
+                        <Link to={e.link}>{e.title}</Link>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </div>
+
+              <div className='mt-9'>
+                <p className='text-richblack-100 font-semibold'>Community</p>
+                <ul className='mt-3 text-sm'>
+                  {
+                    community.map((e, i) => (
+                      <li key={i} className='mt-2'>
+                        <Link to={e.link}>{e.title}</Link>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* RIGHT SECTION */}
+          <div className='basis-1/2 flex justify-between border-l-[1px] border-l-richblack-700 pl-[3.25rem]'>
+            {
+              FooterLink2.map((e, i) => (
+                <div key={i}>
+                  <p className='text-richblack-100 font-semibold text-base'>{e.title}</p>
+                  <ul className='mt-3 text-sm'>
+                    {
+                      e.links.map((e, i) => (
+                        <li key={i} className='mt-2'>
+                          <Link to={e.link}>{e.title}</Link>
+                        </li>
+                      ))
+                    }
+                  </ul>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+
+        {/* BOTTOM SECTION */}
+        <div className='flex justify-between text-richblack-300 pt-8 pb-12 border-t-[1px] border-t-richblack-700 text-sm font-medium'>
+          {/* LEFT */}
+          <div className='flex gap-5'>
+            <Link to="/privacy_policy">Privacy Policy</Link>
+            <Link to="/cookie_policy">Cookie Policy</Link>
+            <Link to="/terms">Terms</Link>
+          </div>
+          {/* RIGHT */}
+          <div>
+            <p>Made with <span className=' text-pink-200'>♥</span> © 2023 Studynotion</p>
+          </div>
         </div>
       </div>
 
-      {/* BOTTOM SECTION */}
-      <div className='w-10/12 mx-auto flex justify-between text-richblack-300 pt-8 pb-12 border-t-[1px] border-t-richblack-700 text-sm font-medium'>
-        {/* LEFT */}
-        <div className='flex gap-5'>
-          <Link to="/privacy_policy">Privacy Policy</Link>
-          <Link to="/cookie_policy">Cookie Policy</Link>
-          <Link to="/terms">Terms</Link>
-        </div>
-        {/* RIGHT */}
-        <div>
-          <p>Made with <span className=' text-pink-200'>♥</span> © 2023 Studynotion</p>
-        </div>
-      </div>
 
     </div>
   )

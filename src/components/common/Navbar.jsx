@@ -24,10 +24,7 @@ const Navbar = () => {
         try {
             const { data } = await apiConnector("GET", categories.CATEGORIES_API);
 
-            let requiredData = [];
-            data.allCategories.forEach(element => {
-                requiredData = [...requiredData, { title: element.name, link: `/catalog/${element.name.replace(" ", "-")}` }];
-            });
+            let requiredData = data.allCategories.map(category => ({title: category.name, link: `/catalog/${category.name.replace(" ", "-").toLowerCase()}`}));
 
             setCatalogLinks(requiredData);
 
