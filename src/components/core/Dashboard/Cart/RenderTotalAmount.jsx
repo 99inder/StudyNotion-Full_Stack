@@ -1,15 +1,20 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import IconBtn from "../../../common/IconBtn"
+import { buyCourse } from "../../../../services/operations/studentFeaturesAPI";
+import { useNavigate } from "react-router-dom";
 
 const RenderTotalAmount = () => {
 
     const { total, cart } = useSelector(state => state.cart);
+    const { token } = useSelector(state => state.auth);
+    const { user } = useSelector(state => state.profile);
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleBuyCourse = () => {
         const courses = cart.map(course => course._id);
-        console.log("Bought these Courses...\n", courses);
-
-        // TODO: API integration-> towards payment gateway
+        buyCourse(courses, token, user, navigate, dispatch);
     }
 
     return (
@@ -20,7 +25,7 @@ const RenderTotalAmount = () => {
                 <p className="line-through text-richblack-300 text-sm leading-[1.375rem]">Rs. {total}</p>
             </div>
             <button onClick={handleBuyCourse} className="mt-4 w-full">
-                <IconBtn text="Buy Now" customClasses={"w-full"}/>
+                <IconBtn text="Buy Now" customClasses={"w-full"} />
             </button>
         </div>
     )

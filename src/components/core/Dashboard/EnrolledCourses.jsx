@@ -4,6 +4,7 @@ import Spinner from '../../common/Spinner'
 import { useSelector } from 'react-redux'
 import { getUserEnrolledCourses } from '../../../services/operations/profileAPI';
 import ProgressBar from '@ramonak/react-progress-bar';
+import {BiDotsVerticalRounded} from "react-icons/bi"
 
 const EnrolledCourses = () => {
 
@@ -25,8 +26,8 @@ const EnrolledCourses = () => {
     }, []);
 
     return (
-        <div className='text-white relative'>
-            <h1 className="text-3xl font-medium text-richblack-5 lg:pl-8 my-12">Enrolled Courses</h1>
+        <div className='relative'>
+            <h1 className="text-3xl font-medium text-richblack-5 lg:pl-8 my-8 lg:my-16">Enrolled Courses</h1>
             {
                 !enrolledCourses
                     ?
@@ -41,36 +42,42 @@ const EnrolledCourses = () => {
                                 Not Enrolled in any Course
                             </div>
                             :
-                            <div>
-                                <div>
-                                    <p>Course Name</p>
-                                    <p>Duration</p>
-                                    <p>Progress</p>
+                            <div className='w-11/12 max-w-maxContent mx-auto border-[1px] border-richblack-700 rounded-lg'>
+                                <div className='flex gap-2 lg:gap-0 text-richblack-50 text-sm font-medium leading-[157.143%] bg-richblack-700 rounded-tl-lg rounded-tr-lg'>
+                                    <p className='w-[50%] lg:p-4 p-2'>Course Name</p>
+                                    <p className='w-[20%] lg:p-4 p-2'>Duration</p>
+                                    <p className='w-[30%] lg:p-4 p-2'>Progress</p>
                                 </div>
 
                                 {/* Cards Starts From Here */}
                                 {
                                     enrolledCourses.map((course, idx) => (
-                                        <div>
-                                            <div>
-                                                <img src={course.thumbnail} alt="" />
+                                        <div key={idx} className='flex items-center gap-2 lg:gap-0 w-full justify-between border-t-[1px] border-richblack-700'>
+                                            <div className='flex text-base font-medium w-[50%] lg:p-4 p-2 gap-5 gap-y-3 flex-wrap'>
+                                                <img src={course.thumbnail} alt="course_thumbnail" className='w-[52px] h-[52px] object-cover rounded-lg' />
                                                 <div>
-                                                    <p>{course.courseName}</p>
-                                                    <p>{course.courseDescription}</p>
+                                                    <p className='text-richblack-5'>{course.courseName}</p>
+                                                    <p className='text-richblack-300'>{course.courseDescription.slice(0, 20)}...</p>
                                                 </div>
                                             </div>
 
-                                            <div>
-                                                {course?.totalDuration}
+                                            <div className='text-richblack-50 text-base font-medium w-[20%] lg:p-4 p-2'>
+                                                {course?.totalDuration} hr
                                             </div>
 
-                                            <div>
-                                                <p>Progress {course?.progressPercentage || 0}%</p>
-                                                <ProgressBar
-                                                    completed={course.progressPercentage || 0}
-                                                    height='8px'
-                                                    isLabelVisible={false}
-                                                />
+                                            <div className='flex flex-wrap gap-y-5 w-[30%] lg:p-4 p-2'>
+
+                                                <div className='flex flex-col gap-1 lg:basis-2/3'>
+                                                    <p className='text-richblack-50 text-xs font-semibold leading-[166.667%]'>Progress {course?.progressPercentage || 0}%</p>
+                                                    <ProgressBar
+                                                        completed={course.progressPercentage || 0}
+                                                        height='8px'
+                                                        isLabelVisible={false}
+                                                    />
+                                                </div>
+                                                <button type='button' className='lg:basis-1/3 grid place-items-center text-richblack-200 text-2xl lg:pl-8 pl-4'>
+                                                    <BiDotsVerticalRounded />
+                                                </button>
                                             </div>
                                         </div>
                                     ))

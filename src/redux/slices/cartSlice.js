@@ -15,6 +15,7 @@ const cartSlice = createSlice({
             const course = action.payload;
             const index = state.cart.findIndex(item => item._id === course._id);
 
+            console.log("first")
             if (index >= 0) {
                 // If the course is already in the cart, do not modify the quantity
                 toast.error("Course already in cart")
@@ -66,5 +67,5 @@ const cartSlice = createSlice({
     }
 });
 
-export const { setTotalItems, removeFromCart, resetCart } = cartSlice.actions;
+export const { setTotalItems, addToCart, removeFromCart, resetCart } = cartSlice.actions;
 export default cartSlice.reducer;
