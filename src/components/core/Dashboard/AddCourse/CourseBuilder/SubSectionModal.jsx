@@ -140,7 +140,7 @@ const SubSectionModal = ({
                         register={register}
                         setValue={setValue}
                         errors={errors}
-                        // video={true}
+                        video={true}
                         viewData={view ? modalData.videoUrl : false}
                         editData={edit ? modalData.videoUrl : false}
                     />

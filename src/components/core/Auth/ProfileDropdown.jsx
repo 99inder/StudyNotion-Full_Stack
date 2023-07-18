@@ -15,8 +15,6 @@ const ProfileDropdown = () => {
 
   const { user } = useSelector(state => state.profile);
 
-  console.log(user);
-
   const [isOpen, setIsOpen] = useState(false);
   useOnClickOutside(ref, () => setIsOpen(false));
 

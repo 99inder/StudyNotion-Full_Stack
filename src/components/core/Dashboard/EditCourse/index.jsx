@@ -22,7 +22,7 @@ const EditCourse = () => {
             const result = await getFullDetailsOfCourse(courseId, token);
             if (result) {
                 dispatch(setEditCourse(true));
-                dispatch(setCourse(result))
+                dispatch(setCourse(result?.data))
             }
             setLoading(false);
         }

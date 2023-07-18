@@ -4,25 +4,28 @@ import Spinner from '../../common/Spinner'
 import { useSelector } from 'react-redux'
 import { getUserEnrolledCourses } from '../../../services/operations/profileAPI';
 import ProgressBar from '@ramonak/react-progress-bar';
-import {BiDotsVerticalRounded} from "react-icons/bi"
+import { BiDotsVerticalRounded } from "react-icons/bi"
+import { useNavigate } from 'react-router-dom';
 
 const EnrolledCourses = () => {
+
+    const navigate = useNavigate();
 
     const { token } = useSelector(state => state.auth);
     const [enrolledCourses, setEnrolledCourses] = useState(null);
 
-    const getEnrolledCourses = async () => {
-        try {
-            const response = await getUserEnrolledCourses(token, setEnrolledCourses);
-            setEnrolledCourses(response);
-
-        } catch (error) {
-            console.log("Unable to Fetch Enrolled Courses.");
-        }
-    }
-
     useEffect(() => {
-        getEnrolledCourses();
+        (async () => {
+            try {
+                const response = await getUserEnrolledCourses(token, setEnrolledCourses);
+                setEnrolledCourses(response);
+                console.log(response);
+
+            } catch (error) {
+                console.log("Unable to Fetch Enrolled Courses.");
+            }
+        })();
+
     }, []);
 
     return (
@@ -38,8 +41,8 @@ const EnrolledCourses = () => {
                     (
                         !enrolledCourses.length
                             ?
-                            <div>
-                                Not Enrolled in any Course
+                            <div className='text-3xl text-richblack-400 text-center font-bold border-t-[1px] pt-[40%] lg:pt-[10%] '>
+                                You aren't Enrolled into any Course
                             </div>
                             :
                             <div className='w-11/12 max-w-maxContent mx-auto border-[1px] border-richblack-700 rounded-lg'>
@@ -53,7 +56,8 @@ const EnrolledCourses = () => {
                                 {
                                     enrolledCourses.map((course, idx) => (
                                         <div key={idx} className='flex items-center gap-2 lg:gap-0 w-full justify-between border-t-[1px] border-richblack-700'>
-                                            <div className='flex text-base font-medium w-[50%] lg:p-4 p-2 gap-5 gap-y-3 flex-wrap'>
+                                            <div className='flex text-base cursor-pointer font-medium w-[50%] lg:p-4 p-2 gap-5 gap-y-3 flex-wrap'
+                                                onClick={() => navigate(`/view-course/${course?._id}/section/${course.courseContent?.[0]?._id}/sub-section/${course.courseContent?.[0]?.subSection?.[0]?._id}`)}>
                                                 <img src={course.thumbnail} alt="course_thumbnail" className='w-[52px] h-[52px] object-cover rounded-lg' />
                                                 <div>
                                                     <p className='text-richblack-5'>{course.courseName}</p>
@@ -62,7 +66,7 @@ const EnrolledCourses = () => {
                                             </div>
 
                                             <div className='text-richblack-50 text-base font-medium w-[20%] lg:p-4 p-2'>
-                                                {course?.totalDuration} hr
+                                                {course?.totalDuration}
                                             </div>
 
                                             <div className='flex flex-wrap gap-y-5 w-[30%] lg:p-4 p-2'>

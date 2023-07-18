@@ -5,6 +5,8 @@ const User = require("../models/User");
 const Section = require("../models/Section")
 const SubSection = require("../models/SubSection")
 const uploadImageToCloudinary = require("../utils/imageUploader");
+const CourseProgress = require("../models/CourseProgress")
+const { convertSecondsToDuration } = require("../utils/secToDuration")
 
 //createCourse handler
 exports.createCourse = async (req, res) => {
@@ -324,6 +326,13 @@ exports.getFullCourseDetails = async (req, res) => {
             })
             .exec()
 
+        let courseProgressCount = await CourseProgress.findOne({
+            courseID: courseId,
+            userId: userId,
+        })
+
+        console.log("courseProgressCount : ", courseProgressCount)
+
         if (!courseDetails) {
             return res.status(400).json({
                 success: false,
@@ -346,9 +355,17 @@ exports.getFullCourseDetails = async (req, res) => {
             })
         })
 
+        const totalDuration = convertSecondsToDuration(totalDurationInSeconds)
+
         return res.status(200).json({
             success: true,
             data: courseDetails,
+            additionalData: {
+                totalDuration,
+                completedVideos: courseProgressCount?.completedVideos
+                    ? courseProgressCount?.completedVideos
+                    : [],
+            }
         })
     } catch (error) {
         console.log("Error Occured at getFullCourseDetails API>>>\n", error);
@@ -400,7 +417,7 @@ exports.deleteCourse = async (req, res) => {
 
         // Remove the course from the Category
         await Category.findByIdAndUpdate(course.category, {
-            $pull : {courses : courseId}
+            $pull: { courses: courseId }
         });
 
         // Delete the course

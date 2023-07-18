@@ -1,6 +1,7 @@
 const { instance } = require("../config/razorpay");
 const Course = require("../models/Course");
 const User = require("../models/User");
+const CourseProgress = require("../models/CourseProgress");
 const mailSender = require("../utils/mailSender");
 const { courseEnrollmentEmail } = require("../mail/templates/courseEnrollmentEmail");
 const { paymentSuccessEmail } = require("../mail/templates/paymentSuccessEmail");
@@ -122,11 +123,18 @@ const enrollStudents = async (courses, userId, res) => {
             if (!enrolledCourse)
                 return res.status(500).json({ success: false, message: "Course not found" })
 
+            const courseProgress = await CourseProgress.create({
+                courseID: courseId,
+                userId: userId,
+                completedVideos: [],
+            })
+
             // find the student and add the id of course/courses to courses
             const enrolledStudent = await User.findByIdAndUpdate(userId,
                 {
                     $push: {
                         courses: courseId,
+                        courseProgress:courseProgress._id
                     }
                 }, { new: true })
 

@@ -31,7 +31,6 @@ const Catalog = () => {
                 try {
                     const res = await getCatalogPageData(categoryId);
                     setCatalogPageData(res);
-                    console.log("YOOO",res)
                 } catch (error) {
                     console.log(error);
                 }

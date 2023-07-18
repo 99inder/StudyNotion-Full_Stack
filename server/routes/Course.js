@@ -15,6 +15,10 @@ const {
   getFullCourseDetails,
 } = require("../controllers/Course")
 
+const {
+  updateCourseProgress
+} = require("../controllers/CourseProgress");
+
 
 // Categories Controllers Import
 const {
@@ -74,9 +78,11 @@ router.get("/getAllCourses", getAllCourses)
 // Get Details for a Specific Courses
 router.post("/getCourseDetails", getCourseDetails)
 //get entire data of the course with everything populated
-router.post("/getFullCourseDetails", auth, isInstructor, getFullCourseDetails);
+router.post("/getFullCourseDetails", auth, getFullCourseDetails);
 // Delete a Course
 router.delete("/deleteCourse", auth, isInstructor, deleteCourse);
+// updateCourseProgress
+router.post("/updateCourseProgress", auth, isStudent, updateCourseProgress);
 
 // ********************************************************************************************************
 //                                      Category routes (Only by Admin)

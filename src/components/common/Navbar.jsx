@@ -38,18 +38,18 @@ const Navbar = () => {
     }, [])
 
     return (
-        <div className={`flex h-[3.5rem] py-4 border-b-[1px] border-richblack-700 text-white ${(location.pathname === '/' || location.pathname === '/contact') ? "" : "bg-richblack-800"} transition-all duration-200`}>
+        <div className={`flex h-[3.5rem] items-center py-4 border-b-[1px] border-richblack-700 text-white ${(location.pathname === '/' || location.pathname === '/contact') ? "" : "bg-richblack-800"} transition-all duration-200`}>
 
-            <div className='w-11/12 max-w-maxContent mx-auto flex justify-between items-center'>
+            <div className='w-11/12 max-w-maxContent mx-auto grid grid-cols-3 '>
 
                 {/* LOGO */}
                 <Link to="/">
-                    <img src={Logo} alt="Logo.svg" />
+                    <img src={Logo} alt="Logo.svg" width={160}/>
                 </Link>
 
                 {/* NAVIGATION */}
-                <nav>
-                    <ul className='flex gap-x-10 text-richblack-25'>
+                <nav className='flex items-center justify-center'>
+                    <ul className='flex gap-x-10 text-richblack-25 justify-center'>
                         {
                             NavbarLinks.map((link, index) => (
                                 <li key={index}>
@@ -93,7 +93,7 @@ const Navbar = () => {
                 </nav>
 
                 {/* LOGIN / SIGNUP / DASHBOARD */}
-                <div className='flex items-center gap-3'>
+                <div className='flex items-center justify-end gap-3'>
                     {/* <AiOutlineSearch className='text-2xl'/> */}
                     {
                         user && user?.accountType !== "instructor" && (
