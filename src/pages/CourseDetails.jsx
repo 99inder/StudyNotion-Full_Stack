@@ -107,9 +107,9 @@ const CourseDetails = () => {
             <div className=" bg-richblack-800 flex">
 
                 {/* COURSE INFO */}
-                <div className="flex py-8 w-11/12 max-w-maxContent mx-auto relative mt-8">
+                <div className="flex lg:flex-row flex-col py-8 w-11/12 max-w-maxContent mx-auto relative mt-8">
                     {/* LEFT */}
-                    <div className="flex flex-col gap-y-3 w-8/12 border-r-[1px] border-richblack-700 pr-6">
+                    <div className="flex flex-col gap-y-3 lg:w-8/12 border-r-[1px] border-richblack-700 pr-6 order-2 lg:order-1">
                         <h1 className="text-richblack-5 font-medium text-3xl leading-[126.667%]">{courseData?.courseName}</h1>
 
                         <p className="text-richblack-200 text-sm leading-[157.143%]">{courseData?.courseDescription}</p>
@@ -135,7 +135,7 @@ const CourseDetails = () => {
                     </div>
 
                     {/* RIGHT CARD*/}
-                    <div className="w-[30%] absolute right-0">
+                    <div className="w-[3/5] md:w-[50%] lg:w-[30%] mb-12 lg:absolute right-0 mx-auto order-1 lg:order-2">
                         <CourseDetailsCard course={courseData} handleBuyCourse={handleBuyCourse} setConfirmationModal={setConfirmationModal} />
                     </div>
                 </div>
@@ -145,7 +145,7 @@ const CourseDetails = () => {
             <div className="w-11/12 max-w-maxContent mx-auto mb-28">
 
                 {/*##### SECTION 2 ##### */}
-                <div className="w-8/12">
+                <div className="lg:w-8/12">
 
                     {/* WHAT YOU WILL LEARN */}
                     <div className="p-8 border-[1px] border-richblack-700 mt-8">

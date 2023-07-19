@@ -42,10 +42,10 @@ function ReviewsSlider() {
   }
 
   return (
-    <div className="text-white">
+    <div className="text-white w-full">
       <div className="my-[50px] h-[184px] max-w-maxContentTab lg:max-w-maxContent">
         <Swiper
-          slidesPerView={4}
+          slidesPerView={2}
           spaceBetween={25}
           loop={true}
           freeMode={true}
