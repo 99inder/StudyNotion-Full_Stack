@@ -117,31 +117,30 @@ exports.getAverageRating = async (req, res) => {
 
 
 //getAllRatingAndReviews
-
-exports.getAllRatings = async (req, res) => {
+exports.getAllRatingReview = async (req, res) => {
     try {
         const allReviews = await RatingAndReview.find({})
             .sort({ rating: "desc" })
             .populate({
                 path: "user",
-                select: "firstName lastName email image",
+                select: "firstName lastName email image", // Specify the fields you want to populate from the "Profile" model
             })
             .populate({
                 path: "course",
-                select: "courseName",
+                select: "courseName", //Specify the fields you want to populate from the "Course" model
             })
-            .exec();
-        return res.status(200).json({
+            .exec()
+
+        res.status(200).json({
             success: true,
-            message: "All reviews fetched successfully",
             data: allReviews,
-        });
-    }
-    catch (error) {
-        console.log(error);
+        })
+    } catch (error) {
+        console.error(error)
         return res.status(500).json({
             success: false,
-            message: error.message,
+            message: "Failed to retrieve the rating and review for the course",
+            error: error.message,
         })
     }
 }

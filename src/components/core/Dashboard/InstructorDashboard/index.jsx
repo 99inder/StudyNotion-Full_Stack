@@ -39,8 +39,8 @@ export default function Instructor() {
     )
 
     return (
-        <div>
-            <div className="space-y-2">
+        <div className="lg:my-14 my-10">
+            <div className="space-y-2 lg:pl-14 pl-2 lg:mb-9 mb-6">
                 <h1 className="text-2xl font-bold text-richblack-5">
                     Hi {user?.firstName} 👋
                 </h1>
@@ -51,7 +51,7 @@ export default function Instructor() {
             {loading ? (
                 <div className="spinner"></div>
             ) : courses.length > 0 ? (
-                <div>
+                <div className="w-11/12 max-w-maxContent mx-auto">
                     <div className="my-4 flex h-[450px] space-x-4">
                         {/* Render chart / graph */}
                         {totalAmount > 0 || totalStudents > 0 ? (
@@ -65,7 +65,7 @@ export default function Instructor() {
                             </div>
                         )}
                         {/* Total Statistics */}
-                        <div className="flex min-w-[250px] flex-col rounded-md bg-richblack-800 p-6">
+                        <div className="flex flex-col rounded-md bg-richblack-800 p-6">
                             <p className="text-lg font-bold text-richblack-5">Statistics</p>
                             <div className="mt-4 space-y-4">
                                 <div>

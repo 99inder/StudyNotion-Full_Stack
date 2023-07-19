@@ -10,11 +10,13 @@ import ConfirmationModal from "../../../common/ConfirmationModal"
 import { useSelector } from 'react-redux';
 import { fetchInstructorCourses, deleteCourse } from "../../../../services/operations/courseDetailsAPI";
 import { useNavigate } from 'react-router-dom';
+import formattedDate from '../../../../utils/dateFormatter';
 
 
 const CoursesTable = ({ courses, setCourses }) => {
 
     const navigate = useNavigate();
+    console.log("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC", courses);
 
     const [loading, setLoading] = useState(false);
     const [confirmationModal, setConfirmationModal] = useState(false);
@@ -58,11 +60,11 @@ const CoursesTable = ({ courses, setCourses }) => {
                             courses?.map(course => (
                                 <Tr key={course._id}>
                                     <Td className="flex gap-6">
-                                        <img src={course.thumbnail} alt={course.courseName + "_thumbnail"} className='"h-[6.25rem] w-[8.8125rem]" lg:h-[148px] lg:w-[221px] object-center object-cover rounded-lg' />
+                                        <img src={course.thumbnail} alt={course.courseName + "_thumbnail"} className='"h-[6.25rem] w-[8.8125rem]" h-[148px] w-[221px] object-center object-cover rounded-lg' />
                                         <div className='flex flex-col'>
                                             <p className='text-xl font-semibold text-richblack-5 leading-[140%] mb-2'>{course.courseName}</p>
                                             <p className='text-richblack-100 text-sm font-normal leading-[157.143%] mb-3'>{course.courseDescription}</p>
-                                            <p className='mb-3 text-richblack-25 text-xs font-medium leading-[166.667%]'>Created: </p>
+                                            <p className='mb-3 text-richblack-25 text-xs font-medium leading-[166.667%]'>Created: {formattedDate(course.createdAt)}</p>
                                             <p className={`bg-richblack-700 px-2 py-[2px] font-medium text-xs leading-[166.667%] flex gap-[0.375rem] w-fit items-center rounded-full ${course.status === COURSE_STATUS.DRAFT ? "text-pink-100" : "text-yellow-100"}`}>
                                                 {
                                                     (course.status === COURSE_STATUS.DRAFT ? <BsClockFill className='text-pink-50' /> : <FaCheckCircle className='text-yellow-50' />)
@@ -76,7 +78,7 @@ const CoursesTable = ({ courses, setCourses }) => {
 
                                     <Td className="text-richblack-100 text-sm font-medium leading=[157.143%]">2h 30m</Td>
 
-                                    <Td className="text-richblack-100 text-sm font-medium leading=[157.143%]">${course.price}</Td>
+                                    <Td className="text-richblack-100 text-sm font-medium leading=[157.143%]">Rs. {course.price}</Td>
 
                                     <Td>
                                         <div className='flex gap-x-[0.625rem] text-richblack-400 items-center'>

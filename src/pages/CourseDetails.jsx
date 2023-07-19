@@ -4,7 +4,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import RatingStars from "../components/common/RatingStars";
 import { MdOutlineInfo } from 'react-icons/md'
 import { FiGlobe } from 'react-icons/fi'
-import IconBtn from "../components/common/IconBtn"
 import Footer from "../components/common/Footer"
 import { useState } from "react";
 import { useEffect } from "react";
@@ -14,17 +13,28 @@ import Spinner from "../components/common/Spinner";
 import ConfirmationModal from "../components/common/ConfirmationModal";
 import formattedDate from "../utils/dateFormatter";
 import CourseDetailsCard from "../components/core/CourseDetails/CourseDetailsCard";
+import CourseAccordionBar from "../components/core/CourseDetails/CourseAccordionBar";
 
 const CourseDetails = () => {
 
     const { token } = useSelector(state => state.auth);
     const { user, loading } = useSelector(state => state.profile);
-    const { paymentLoading } = useSelector(state => state.course);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const { courseId } = useParams();
+
+
+    const [isActive, setIsActive] = useState(Array(0));
+    const handleActive = (id) => {
+        // console.log("called", id)
+        setIsActive(
+            !isActive.includes(id)
+                ? isActive.concat([id])
+                : isActive.filter((e) => e !== id)
+        )
+    }
 
     const [courseData, setCourseData] = useState(null);
     const [avgRating, setAvgRating] = useState(0);
@@ -132,7 +142,7 @@ const CourseDetails = () => {
             </div>
 
             {/* PART 2 */}
-            <div className="w-11/12 max-w-maxContent mx-auto">
+            <div className="w-11/12 max-w-maxContent mx-auto mb-28">
 
                 {/*##### SECTION 2 ##### */}
                 <div className="w-8/12">
@@ -155,12 +165,19 @@ const CourseDetails = () => {
                             <h3 className="text-richblack-5 font-semibold text-2xl">Course Content</h3>
                             <div className="flex justify-between">
                                 <p className="text-richblack-50 text-sm leading-[157.143%]">{totalNoOfSections} section(s) • {totalNoOfLectures} lecture(s) • 7h 57m total length</p>
-                                <button disabled="disabled" className="text-yellow-50 text-sm leading-[157.143%] font-medium">Collapse all sections</button>
+                                <button onClick={() => setIsActive([])} className="text-yellow-50 text-sm leading-[157.143%] font-medium">Collapse all sections</button>
                             </div>
                         </div>
                         {/* NESTED SECTION */}
                         <div className="mt-4">
-
+                            {courseData?.courseContent?.map((course, index) => (
+                                <CourseAccordionBar
+                                    course={course}
+                                    key={index}
+                                    isActive={isActive}
+                                    handleActive={handleActive}
+                                />
+                            ))}
                         </div>
                     </div>
 
@@ -184,12 +201,6 @@ const CourseDetails = () => {
                     </div>
                 </div>
 
-                {/* SECTION 3 REVIEWS SLIDER*/}
-                <div className="mt-11 py-12">
-                    <h3 className="text-center text-3xl text-richblack-50 font-semibold">Reviews from other learners</h3>
-                    {/* <ReviewsSlider /> */}
-
-                </div>
             </div>
 
             <div className="bg-richblack-800">

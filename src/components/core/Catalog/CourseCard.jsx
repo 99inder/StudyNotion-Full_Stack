@@ -20,7 +20,7 @@ const CourseCard = ({ course, Height }) => {
                 <div className="mb-[50px]">
                     <div>
                         <img src={course?.thumbnail} alt={course?.courseName + "_thumbnail"}
-                            className={`${Height} w-full rounded-xl object-cover`} />
+                            className={`${Height} max-w-[588px] w-full object-cover`} />
                     </div>
                     <div className="mb-[0.625rem] mt-5">
                         <p className="text-richblack-5 text-base font-medium mb-2">{course?.courseName}</p>

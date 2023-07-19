@@ -35,7 +35,7 @@ const timelineData = [
 const TimelineSection = () => {
     return (
         // Timeline Section
-        <div className='flex w-full pb-20 mt-16'>
+        <div className='flex flex-col md:flex-row w-full pb-20 mt-16 gap-y-[76px]'>
 
             {/* LEFT SECTION */}
             <div className='flex flex-col gap basis-2/5 justify-center'>
@@ -77,11 +77,11 @@ const TimelineSection = () => {
             <div className='basis-3/5 shadow-blue-200 relative'>
 
                 <div>
-                    <img src={timelineImage} alt="timeline.img" className=' object-fit'/>
+                    <img src={timelineImage} alt="timeline.img" className='object-fit'/>
                 </div>
 
                 {/* GREEN OVERLAPPING BAR */}
-                <div className=' absolute left-[50%] translate-x-[-50%] translate-y-[-50%] left flex items-center justify-evenly gap-[2.625rem] bg-caribbeangreen-700 p-[2.625rem]'>
+                <div className='absolute left-[50%] translate-x-[-50%] translate-y-[-50%] flex flex-col lg:flex-row items-center justify-evenly gap-5 lg:gap-[2.625rem] bg-caribbeangreen-700 p-6 lg:p-[2.625rem]'>
 
                     <div className='flex items-center justify-center gap-6'>
                         <p className=' font-bold text-4xl text-white tracking-tight'>10</p>
@@ -91,8 +91,7 @@ const TimelineSection = () => {
                         </div>
                     </div>
 
-                    <div className=' border-t-2 w-[44px] rotate-90 border-caribbeangreen-300'>
-
+                    <div className=' border-t-2 w-[44px] lg:rotate-90 border-caribbeangreen-300'>
                     </div>
 
                     <div className='flex items-center justify-center gap-6'>

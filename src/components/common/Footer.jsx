@@ -94,10 +94,10 @@ const Footer = () => {
 
       <div className='w-11/12 max-w-maxContent mx-auto'>
 
-        <div className='text-richblack-400 flex justify-between pt-14 pb-8'>
+        <div className='text-richblack-400 md:flex justify-between pt-14 pb-8'>
 
           {/* LEFT SECTION */}
-          <div className='flex-wrap basis-1/2 flex justify-between pr-[3.25rem]'>
+          <div className='basis-1/2 flex flex-wrap gap-20 md:gap-0 md:justify-between md:pr-[3.25rem]'>
             {/* COLUMN 1 */}
             <div className='basis-1/6'>
               <img src={Logo} alt="smalLogo.png" className=' w-40' />
@@ -163,7 +163,7 @@ const Footer = () => {
             </div>
 
             {/* COLUMN 3 */}
-            <div className='basis-1/6'>
+            <div className='md:basis-1/6 flex gap-20 basis-[100%] md:block'>
               <div>
                 <p className='text-richblack-100 font-semibold'>Plans</p>
                 <ul className='mt-3 text-sm'>
@@ -177,7 +177,7 @@ const Footer = () => {
                 </ul>
               </div>
 
-              <div className='mt-9'>
+              <div className='md:mt-9 ml-2 md:ml-0'>
                 <p className='text-richblack-100 font-semibold'>Community</p>
                 <ul className='mt-3 text-sm'>
                   {
@@ -193,7 +193,7 @@ const Footer = () => {
           </div>
 
           {/* RIGHT SECTION */}
-          <div className='basis-1/2 flex justify-between border-l-[1px] border-l-richblack-700 pl-[3.25rem]'>
+          <div className='basis-1/2 flex flex-wrap md:justify-between gap-20 md:gap-0 md:border-l-[1px] border-l-richblack-700 md:pl-[3.25rem] mt-[49px] md:mt-0'>
             {
               FooterLink2.map((e, i) => (
                 <div key={i}>
@@ -214,7 +214,7 @@ const Footer = () => {
         </div>
 
         {/* BOTTOM SECTION */}
-        <div className='flex justify-between text-richblack-300 pt-8 pb-12 border-t-[1px] border-t-richblack-700 text-sm font-medium'>
+        <div className='flex flex-col md:flex-row items-center justify-between text-richblack-300 pt-8 pb-12 border-t-[1px] border-t-richblack-700 text-sm font-medium gap-y-3'>
           {/* LEFT */}
           <div className='flex gap-5'>
             <Link to="/privacy_policy">Privacy Policy</Link>

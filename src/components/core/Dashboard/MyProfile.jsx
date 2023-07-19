@@ -9,14 +9,13 @@ const MyProfile = () => {
     const navigate = useNavigate();
 
     return (
-        <div className='text-white'>
+        <div>
+            <h1 className="text-3xl font-medium text-richblack-5 lg:pl-8 my-4 lg:my-12">My Profile</h1>
 
-            <h1 className="text-3xl font-medium text-richblack-5 lg:pl-8 my-12">My Profile</h1>
-
-            <div className="mx-auto w-11/12 max-w-[1000px] py-10">
+            <div className="mx-auto w-11/12 max-w-[1000px] py-6 lg:py-10">
                 {/* SECTION 1 */}
-                <div className="flex items-center lg:p-6 gap-5 bg-richblack-800 rounded-lg justify-between mb-5">
-                    <div className="flex items-center lg:gap-6">
+                <div className="flex flex-wrap items-center p-3 lg:p-6 gap-5 bg-richblack-800 rounded-lg justify-between mb-5">
+                    <div className="flex items-center lg:gap-6 gap-4">
                         <img src={user?.image} alt={`profile-${user?.firstName}`} className="aspect-square w-[78px] rounded-full object-cover" />
 
                         <div>
@@ -30,12 +29,11 @@ const MyProfile = () => {
                         onclick={() => navigate("/dashboard/settings")}
                     >
                         <FiEdit />
-
                     </IconBtn>
                 </div>
 
                 {/* SECTION 2 */}
-                <div className="bg-richblack-800 rounded-lg lg:p-6">
+                <div className="bg-richblack-800 rounded-lg lg:p-6 p-3">
                     <div className="flex flex-wrap justify-between items-center mb-5">
                         <p className="text-richblack-5 text-lg font-semibold ">Personal Details</p>
                         <IconBtn

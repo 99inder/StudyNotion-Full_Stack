@@ -61,3 +61,8 @@ export const settingsEndpoints = {
     CHANGE_PASSWORD_API: BASE_URL + "/auth/changepassword",
     DELETE_PROFILE_API: BASE_URL + "/profile/deleteProfile",
 }
+
+// RATINGS AND REVIEWS
+export const ratingsEndpoints = {
+    REVIEWS_DETAILS_API: BASE_URL + "/course/getReviews",
+}
