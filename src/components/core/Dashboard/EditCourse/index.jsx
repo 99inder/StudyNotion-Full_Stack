@@ -33,7 +33,7 @@ const EditCourse = () => {
             dispatch(setEditCourse(false));
             dispatch(setCourse(null));
         }
-
+        // eslint-disable-next-line
     }, [])
 
 

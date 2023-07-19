@@ -36,6 +36,7 @@ const SubSectionModal = ({
             setValue("lectureDesc", modalData.description);
             setValue("lectureVideo", modalData.videoUrl);
         }
+        // eslint-disable-next-line
     }, []);
 
     const isFormUpdated = () => {

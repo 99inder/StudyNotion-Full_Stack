@@ -21,6 +21,7 @@ const CourseReviewModal = ({ setReviewModal }) => {
     useEffect(() => {
         setValue("courseExperience", "");
         setValue("courseRating", 0);
+        // eslint-disable-next-line
     }, [])
 
     const ratingChanged = (newRating) => {

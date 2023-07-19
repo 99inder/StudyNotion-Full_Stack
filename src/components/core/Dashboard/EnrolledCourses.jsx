@@ -25,7 +25,7 @@ const EnrolledCourses = () => {
                 console.log("Unable to Fetch Enrolled Courses.");
             }
         })();
-
+        // eslint-disable-next-line
     }, []);
 
     return (

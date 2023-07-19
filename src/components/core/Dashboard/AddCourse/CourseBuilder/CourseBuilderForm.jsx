@@ -123,6 +123,7 @@ const CourseBuilderForm = () => {
         <div className="flex gap-x-7 flex-wrap mt-[1.625rem]">
           <IconBtn
             type={"submit"}
+            disabled = {loading ? true : false}
             text={editSectionName ? "Edit Section Name" : "Create Section"}
             customClasses={"!bg-transparent border-yellow-50 border-[1px] !text-yellow-50 "}
             innerClasses={"gap-3"}

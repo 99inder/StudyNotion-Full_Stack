@@ -15,13 +15,14 @@ const PublishCourse = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [loading, setLoading] = useState();
-    const { register, handleSubmit, getValues, setValue, formState: { errors } } = useForm();
+    const { register, getValues, setValue } = useForm();
     const { course } = useSelector(state => state.course);
     const { token } = useSelector(state => state.auth);
 
     useEffect(() => {
         if (course?.status === COURSE_STATUS.PUBLISHED)
             setValue("public", true);
+        // eslint-disable-next-line
     }, [])
 
     const goToCourses = () => {

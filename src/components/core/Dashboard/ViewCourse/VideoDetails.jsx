@@ -42,6 +42,7 @@ const VideoDetails = () => {
                 setVideoEnded(false)
             }
         })()
+        // eslint-disable-next-line
     }, [courseSectionData, courseEntireData, location.pathname])
 
     // check if the lecture is the first video of the course

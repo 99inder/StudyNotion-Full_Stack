@@ -26,6 +26,7 @@ export default function Instructor() {
             }
             setLoading(false)
         })()
+        // eslint-disable-next-line
     }, [])
 
     const totalAmount = instructorData?.reduce(

@@ -24,6 +24,7 @@ const MyCourses = () => {
 
   useEffect(() => {
     fetchCourses();
+    // eslint-disable-next-line
   }, [])
 
 
