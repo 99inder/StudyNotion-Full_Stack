@@ -21,7 +21,10 @@ const Navbar = () => {
 
     const [catalogLinks, setCatalogLinks] = useState([]);
 
+    const [loading, setLoading] = useState(false);
+
     const fetchSublinks = async () => {
+        setLoading(true);
         try {
             const { data } = await apiConnector("GET", categories.CATEGORIES_API);
 
@@ -32,6 +35,7 @@ const Navbar = () => {
         } catch (error) {
             console.log("Failed to fetch Catalog Data.")
         }
+        setLoading(false);
     }
 
     useEffect(() => {
@@ -72,13 +76,17 @@ const Navbar = () => {
 
                                                         <div className='absolute z-20 w-max lg:w-72 lg:-right-28 top-full mt-4 invisible opacity-0 rounded-md bg-richblack-5 p-4 text-richblue-900 group-hover:visible group-hover:opacity-100 transition-all duration-200 '>
                                                             <ul className='text-lg'>
-                                                                {catalogLinks.length > 0 ?
-                                                                    catalogLinks.map((e, i) => (
-                                                                        <li key={i} className='hover:bg-richblack-50 rounded-md relative z-10'>
-                                                                            <Link to={e.link} className='w-full inline-block p-3'>{e.title}</Link>
-                                                                        </li>
-                                                                    )) :
-                                                                    <li className='flex w-full h-full items-center justify-center'>No Data</li>
+                                                                {
+                                                                    loading ?
+                                                                        <li className='flex w-full h-full items-center justify-center'>Fetching...</li>
+                                                                        :
+                                                                        catalogLinks.length > 0 ?
+                                                                            catalogLinks.map((e, i) => (
+                                                                                <li key={i} className='hover:bg-richblack-50 rounded-md relative z-10'>
+                                                                                    <Link to={e.link} className='w-full inline-block p-3'>{e.title}</Link>
+                                                                                </li>
+                                                                            )) :
+                                                                            <li className='flex w-full h-full items-center justify-center'>No Data</li>
                                                                 }
                                                             </ul>
 
