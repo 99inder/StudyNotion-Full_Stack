@@ -40,6 +40,7 @@ const Navbar = () => {
 
     useEffect(() => {
         fetchSublinks();
+        console.log(location.pathname.split("/").includes('catalog'))
     }, [])
 
 
@@ -70,8 +71,8 @@ const Navbar = () => {
                                                 (
                                                     <div className='cursor-pointer relative group'>
                                                         <div className='flex items-center justify-center gap-2'>
-                                                            <p>{link.title}</p>
-                                                            <BsChevronDown />
+                                                            <p className={`${location.pathname.split("/").includes('catalog') && "text-[#FFD60A]"}`}>{link.title}</p>
+                                                            <BsChevronDown className={`${location.pathname.split("/").includes('catalog') && "text-[#FFD60A]"}`} />
                                                         </div>
 
                                                         <div className='absolute z-20 w-max lg:w-72 lg:-right-28 top-full mt-4 invisible opacity-0 rounded-md bg-richblack-5 p-4 text-richblue-900 group-hover:visible group-hover:opacity-100 transition-all duration-200 '>
@@ -108,7 +109,7 @@ const Navbar = () => {
                     </nav>
 
                     {/* LOGIN / SIGNUP / DASHBOARD */}
-                    <div className='hidden lg:flex items-center justify-end gap-3'>
+                    <div className='hidden lg:flex items-center justify-end gap-6'>
                         {/* <AiOutlineSearch className='text-2xl'/> */}
                         {
                             user && user?.accountType !== "instructor" && (
@@ -193,9 +194,10 @@ const Navbar = () => {
                                                                     {
                                                                         catalogLinks.length > 0 ?
                                                                             catalogLinks.map((e, i) => (
-                                                                                <li key={i} className='rounded-md relative z-9'>
-                                                                                    <Link to={e.link} className='w-full inline-block p-3'>{e.title}</Link>
-                                                                                </li>
+                                                                                <Link to={e.link} onClick={() => {
+                                                                                    setIsCatalogOpen(false)
+                                                                                    setIsMenuOpen(false)
+                                                                                }} className='w-full inline-block p-3'>{e.title}</Link>
                                                                             )) :
                                                                             <li className='flex w-full h-full items-center justify-center'>No Data</li>
                                                                     }
@@ -205,7 +207,7 @@ const Navbar = () => {
                                                     )
                                                     :
                                                     (
-                                                        <NavLink to={link?.path}>{link.title}</NavLink>
+                                                        <NavLink to={link?.path} onClick={() => setIsMenuOpen(false)}>{link.title}</NavLink>
                                                     )
                                             }
                                         </li>
@@ -221,7 +223,7 @@ const Navbar = () => {
                                 {/* <AiOutlineSearch className='text-2xl'/> */}
                                 {
                                     user && user?.accountType !== "instructor" && (
-                                        <Link to="/dashboard/cart" className='relative'>
+                                        <Link to="/dashboard/cart" className='relative' onClick={() => setIsMenuOpen(false)}>
                                             <AiOutlineShoppingCart className='text-2xl' />
                                             {
                                                 totalItems > 0 && (
